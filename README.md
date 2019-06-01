@@ -24,3 +24,13 @@ This library adds a `watchdog` section. Containing an `interval` and a `net` sec
 By default the library is not enabled. Default configuration had a check `interval` of 60 seconds, `retry` count of 5 and an empty `host` configuration.
 
 If you leave `host` empty it will use the networks default gateway as the check target.
+
+## Usage
+Because this project is uploaded with name `mgos_watchdog` you need to add the `name` attribute to your `origin` configuration item in `mgos.yml` or else the compiler will not find the `mgos_watchdog...` functions.
+
+```yaml
+libs:
+  - origin: https://github.com/wowthur/mgos_watchdog
+    name: watchdog
+```
+
