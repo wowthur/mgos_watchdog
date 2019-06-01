@@ -1,0 +1,20 @@
+author: Wouter Langenberg <wowthur@wowthur.com>
+type: lib
+description: Watchdog
+version: 0.1
+
+includes:
+  - include
+
+sources:
+  - src
+
+config_schema:
+  - ["watchdog", "o", {title: "Watchdog library settings"}]
+  - ["watchdog.enable", "b", false, {title: "Enable watchdog"}]
+  - ["watchdog.interval", "i", 60000, {title: "Watchdog interval"}]
+  - ["watchdog.net", "o", {title: "Watchdog network settings"}]
+  - ["watchdog.net.host", "s", "", {title: "Hostname to check"}]
+  - ["watchdog.net.retry", "i", 5, {title: "Retry count"}]
+
+manifest_version: 2019-04-26
