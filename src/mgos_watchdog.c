@@ -16,6 +16,7 @@
 static char mgos_watchdog_host[16];
 static struct ping_option mgos_watchdog_ping_option;
 static int mgos_watchdog_retrycount;
+static bool watchdog_timer_initialised = false;
 
 /**
  * @brief Callback for NET timer
@@ -125,8 +126,12 @@ void mgos_watchdog_init_net()
  * 
  * @param interval Interval at which to check NET connectivity
  */
-void mgos_watchdog_init_net_timer(int interval)
+void mgos_watchdog_init_net_timer(int interval)d
 {
+
+    // Avoid initialising watchdog timer twice
+    if (watchdog_timer_initialised) return;
+
     memset(mgos_watchdog_host, 0, sizeof(mgos_watchdog_host));
     
     if (mgos_sys_config_get_watchdog_net_host() == NULL) {
@@ -159,6 +164,7 @@ void mgos_watchdog_init_net_timer(int interval)
 
     LOG(LL_DEBUG, ("Starting net timer with interval: %d, host: %s", interval, mgos_watchdog_host));
     mgos_set_timer(interval, MGOS_TIMER_REPEAT, mgos_watchdog_net_timer_cb, NULL);
+    watchdog_timer_initialised = true;
 }
 
 /**
